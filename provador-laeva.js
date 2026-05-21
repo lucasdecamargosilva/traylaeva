@@ -678,7 +678,7 @@
                 function positionBtn() {
                     const rect = el.getBoundingClientRect();
                     const btnTop = rect.top + (isMobile ? 70 : -10);
-                    const threshold = isMobile ? 80 : 120;
+                    const threshold = isMobile ? 80 : 0;
                     if (btnTop < threshold || rect.bottom < 0) {
                         openBtn.style.visibility = 'hidden';
                     } else {
