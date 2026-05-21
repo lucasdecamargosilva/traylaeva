@@ -683,14 +683,14 @@
 
                 function positionBtn() {
                     const rect = el.getBoundingClientRect();
-                    const btnTop = rect.top + (isMobile ? 70 : -10);
+                    const btnTop = rect.top + (isMobile ? 70 : 40);
                     const threshold = isMobile ? 80 : 0;
                     if (btnTop < threshold || rect.bottom < 0) {
                         openBtn.style.visibility = 'hidden';
                     } else {
                         openBtn.style.visibility = 'visible';
                         openBtn.style.top = btnTop + 'px';
-                        openBtn.style.left = (rect.right - (isMobile ? 100 : 180)) + 'px';
+                        openBtn.style.left = (rect.right - (isMobile ? 100 : 90)) + 'px';
                     }
                 }
                 positionBtn();
