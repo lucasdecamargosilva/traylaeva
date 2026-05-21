@@ -500,6 +500,7 @@
                                 <div id="mc-phone-error" class="mc-status-msg">Insira um n\u00famero v\u00e1lido</div>
                                 <div id="mc-provas-restantes" class="mc-provas-msg"></div>
                             </div>
+                            <!-- COLETA DE MEDIDAS DESATIVADA TEMPORARIAMENTE
                             <div id="mc-calca-fields">
                                 <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mc-text-light);text-align:center;">Suas medidas (recomenda\u00e7\u00e3o de tamanho)</p>
                                 <div style="display:flex;gap:12px;">
@@ -525,6 +526,8 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
+
                         </div>
                         <p style="margin:20px 0 10px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mc-text-light);text-align:center;">Sua foto deve seguir estes requisitos:</p>
                         <div class="mc-tips-grid" style="margin-top:0;">
@@ -577,11 +580,14 @@
                             <img id="mc-final-view-img">
                         </div>
                         <div id="mc-result-actions-col">
+                            <!-- RECOMENDAÇÃO DE TAMANHO DESATIVADA TEMPORARIAMENTE
                             <div id="mc-size-recommendation" style="display:none;">
                                 <p>Tamanho Recomendado</p>
                                 <p id="mc-rec-size-label"></p>
                                 <p id="mc-rec-size-desc"></p>
                             </div>
+                            -->
+
                             <div id="mc-provas-restantes-result" class="mc-provas-msg" style="text-align:center;margin-bottom:8px;"></div>
                             <button class="mc-btn-outline" id="mc-btn-back">Voltar ao Produto</button>
                             <button class="mc-btn-black mc-res-mobile-only" id="mc-retry-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;">
