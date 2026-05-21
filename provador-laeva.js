@@ -677,7 +677,7 @@
 
                 function positionBtn() {
                     const rect = el.getBoundingClientRect();
-                    const btnTop = rect.top + (isMobile ? 70 : 15);
+                    const btnTop = rect.top + (isMobile ? 70 : -10);
                     const threshold = isMobile ? 80 : 120;
                     if (btnTop < threshold || rect.bottom < 0) {
                         openBtn.style.visibility = 'hidden';
@@ -700,6 +700,29 @@
             openBtn.style.cssText = 'position:fixed;bottom:100px;left:20px;z-index:50;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;padding:0;';
             LOG.warn('Nenhum container encontrado — botão fixado no canto (fallback)');
         }
+
+        // Botão inline acima do Comprar
+        (function injectInlineBtn() {
+            if (document.querySelector('.laeva-inline-trigger')) return;
+            const target = document.querySelector('.tray-buy-button') || document.querySelector('.actions');
+            if (!target) return;
+            const inline = document.createElement('button');
+            inline.type = 'button';
+            inline.className = 'laeva-inline-trigger';
+            const ico = document.createElement('i');
+            ico.className = 'ph ph-camera';
+            ico.style.fontSize = '18px';
+            const lbl = document.createElement('span');
+            lbl.textContent = 'Provar Virtualmente';
+            inline.appendChild(ico);
+            inline.appendChild(lbl);
+            inline.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 18px;margin:0 0 12px 0;background:#000;color:#fff;border:1px solid #000;border-radius:0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:all .2s;';
+            inline.onmouseover = () => { inline.style.background = '#fff'; inline.style.color = '#000'; };
+            inline.onmouseout  = () => { inline.style.background = '#000'; inline.style.color = '#fff'; };
+            inline.addEventListener('click', (e) => { e.preventDefault(); openBtn.click(); });
+            target.parentNode.insertBefore(inline, target);
+            LOG.ok('Botão inline injetado antes de ' + (target.className || target.tagName));
+        })();
 
         const modal = document.getElementById('mc-modal-ia');
         const genBtn = document.getElementById('mc-btn-generate');
