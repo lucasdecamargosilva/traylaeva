@@ -713,12 +713,12 @@
             ico.className = 'ph ph-camera';
             ico.style.fontSize = '18px';
             const lbl = document.createElement('span');
-            lbl.textContent = 'Provar Virtualmente';
+            lbl.textContent = 'PROVADOR VIRTUAL';
             inline.appendChild(ico);
             inline.appendChild(lbl);
-            inline.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 18px;margin:0 0 12px 0;background:#000;color:#fff;border:1px solid #000;border-radius:0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:all .2s;';
-            inline.onmouseover = () => { inline.style.background = '#fff'; inline.style.color = '#000'; };
-            inline.onmouseout  = () => { inline.style.background = '#000'; inline.style.color = '#fff'; };
+            inline.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 18px;margin:0 0 12px 0;background:#fff;color:#000;border:1px solid #000;border-radius:0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:all .2s;';
+            inline.onmouseover = () => { inline.style.background = '#000'; inline.style.color = '#fff'; };
+            inline.onmouseout  = () => { inline.style.background = '#fff'; inline.style.color = '#000'; };
             inline.addEventListener('click', (e) => { e.preventDefault(); openBtn.click(); });
             target.parentNode.insertBefore(inline, target);
             LOG.ok('Botão inline injetado antes de ' + (target.className || target.tagName));
