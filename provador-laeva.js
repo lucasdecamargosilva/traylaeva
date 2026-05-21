@@ -68,7 +68,7 @@
     const LOGO_URL = 'https://images.tcdn.com.br/img/img_prod/1401014/1748467573_logo.png';
 
     const WEBHOOK_LIMITE = 'https://n8n.segredosdodrop.com/webhook/limite-provas';
-    const DAILY_LIMIT = 3;
+    const DAILY_LIMIT = 99999; // Limite desativado pra Laeva
 
     LOG.info('Script carregado — Provador Virtual Laeva (Tray)');
 
@@ -824,13 +824,8 @@
                 const d = await r.json();
                 const used = Math.max(d.count || 0, d.phone_count || 0, d.ip_count || 0);
                 const restantes = Math.max(0, DAILY_LIMIT - used);
-                if (restantes > 0) {
-                    _mcEls.forEach(el => el.textContent = restantes + (restantes === 1 ? ' prova restante hoje' : ' provas restantes hoje'));
-                    _mcEls.forEach(el => el.classList.remove('is-warn'));
-                } else {
-                    _mcEls.forEach(el => el.textContent = 'Limite de ' + DAILY_LIMIT + ' provas atingido — volte amanhã.');
-                    _mcEls.forEach(el => el.classList.add('is-warn'));
-                }
+                // Provas restantes ocultas pra Laeva (sem limite)
+                _mcEls.forEach(el => { el.textContent = ''; el.classList.remove('is-warn'); });
             } catch(_) { _mcEls.forEach(el => el.textContent = ''); _mcEls.forEach(el => el.classList.remove('is-warn')); }
         }
 
