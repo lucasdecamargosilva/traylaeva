@@ -656,7 +656,7 @@
         openBtn.setAttribute('aria-label', 'Abrir Provador Virtual');
         openBtn.innerHTML = stampImageHTML;
 
-        const trayImgContainers = ['.image-show', '.box-gallery', '.product-colum-left'];
+        const trayImgContainers = ['.image-show', '.box-gallery', '.product-colum-left', '.product-gallery', '.product-images-slide'];
         const fallbackContainers = [
             '.product__media-wrapper', '.product-gallery__media', '.product__media',
             '.product-image-main', '.product-media-container', '[data-media-id]',
@@ -999,6 +999,9 @@
                     '.image-show .box-img.active .zoom img, ' +
                     '.image-show .box-img .zoom img, ' +
                     '.image-show img, ' +
+                    '.product-gallery .images img, ' +
+                    '.product-images-slide .swiper-slide-active .swiper-zoom-container img, ' +
+                    '.product-images-slide .swiper-zoom-container img, ' +
                     '.product__media img, ' +
                     'img.product-featured-media, ' +
                     '.product-single__photo'
