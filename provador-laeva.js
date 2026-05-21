@@ -305,7 +305,7 @@
             --mc-gray: #f7f6f4;
             --mc-text: #111111;
             --mc-text-light: #8a7a5a;
-            --mc-gold: #c9a227;
+            --mc-gold: #000000;
             --font-display: 'Bebas Neue', sans-serif;
             --font-body: 'DM Sans', sans-serif;
         }
@@ -447,7 +447,7 @@
         #mc-result-img-col { width: 100%; max-height: 65vh; background: var(--mc-gray); overflow: hidden; display: flex; align-items: center; justify-content: center; border: none !important; margin: 0 !important; }
         #mc-result-img-col img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
         #mc-result-actions-col { display: flex; flex-direction: column; gap: 12px; padding: 20px 28px 0; }
-        #mc-size-recommendation { text-align: center; padding: 14px 16px; border: 1px solid var(--mc-gold); background: #fffaf0; }
+        #mc-size-recommendation { text-align: center; padding: 14px 16px; border: 1px solid #000; background: #f5f5f5; }
         #mc-size-recommendation p:first-child { margin: 0 0 4px; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--mc-text-light); }
         #mc-rec-size-label { margin: 0; font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; color: var(--mc-text); }
         #mc-rec-size-desc { margin: 4px 0 0; font-size: 10px; color: var(--mc-text-light); line-height: 1.4; }
@@ -532,7 +532,7 @@
                             <div class="mc-tip-item"><i class="ph ph-person"></i><span>Corpo Inteiro</span></div>
                             <div class="mc-tip-item"><i class="ph ph-sun"></i><span>Boa Luz</span></div>
                         </div>
-                        <div class="mc-warning-back-front" style="display:block !important;visibility:visible !important;margin:14px 0 0;font-size:13px;color:#444;text-align:center;line-height:1.6;padding:14px 12px;background:#fff8e6;border:1px solid #f0d77a;border-radius:4px;font-weight:500;">&#9888;&#65039; Se voc&#234; escolheu a foto de costas, envie uma foto sua tamb&#233;m de costas. Se escolheu a frente, envie de frente.</div>
+                        <div class="mc-warning-back-front" style="display:block !important;visibility:visible !important;margin:14px 0 0;font-size:13px;color:#444;text-align:center;line-height:1.6;padding:14px 12px;background:#f5f5f5;border:1px solid #000;border-radius:4px;font-weight:500;">&#9888;&#65039; Se voc&#234; escolheu a foto de costas, envie uma foto sua tamb&#233;m de costas. Se escolheu a frente, envie de frente.</div>
                         <div style="display:flex;gap:20px;justify-content:center;margin-top:20px;">
 
 
