@@ -398,6 +398,40 @@
             border-color: rgba(239,68,68,0.3);
             font-weight: 600;
         }
+        .mc-validation-hint {
+            display: none;
+            background: #cc3333;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(204,51,51,0.25);
+            animation: mc-pop-in 0.25s ease;
+        }
+        .mc-validation-hint.is-visible { display: block; }
+        @keyframes mc-pop-in {
+            0% { opacity: 0; transform: translateY(-6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes mc-shake-x {
+            0%,100%{transform:translateX(0)}
+            15%,45%,75%{transform:translateX(-6px)}
+            30%,60%,90%{transform:translateX(6px)}
+        }
+        .mc-shake { animation: mc-shake-x 0.6s ease; }
+        .mc-input.is-error, #mc-phone.is-error {
+            border-color: #cc3333 !important;
+            background: rgba(204,51,51,0.06) !important;
+            box-shadow: 0 0 0 3px rgba(204,51,51,0.15);
+        }
+        #mc-trigger-upload.is-error {
+            border-color: #cc3333 !important;
+            background: rgba(204,51,51,0.06);
+        }
 
 
         .mc-tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 16px 0; border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8; }
@@ -552,7 +586,8 @@
                         <div id="mc-terms-row" style="display:block;margin:14px 0 0;font-size:13px;color:#444;text-align:center;line-height:1.6;cursor:pointer;opacity:0.6;user-select:none;">
                             <span id="mc-terms-icon" style="font-size:18px;vertical-align:middle;margin-right:6px;">&#9744;</span><span>Concordo com os <a href="http://provoulevou.com.br/termos.html" target="_blank" onclick="event.stopPropagation()" style="color:var(--mc-gold);text-decoration:underline;">Termos e Condi&#231;&#245;es</a></span>
                         </div>
-                        <button class="mc-btn-black" id="mc-btn-generate" disabled style="margin-bottom:24px;">Ver no meu corpo</button>
+                        <div id="mc-validation-hint" class="mc-validation-hint"></div>
+                        <button class="mc-btn-black" id="mc-btn-generate" style="margin-bottom:24px;">Ver no meu corpo</button>
                     </div>
 
                     <!-- PASSO DE CONFIRMAÇÃO (oculto - mantido para compatibilidade) -->
@@ -840,9 +875,31 @@
             const phoneOk = isValidBRPhone(nums);
             document.getElementById('mc-phone-error').style.display = (phoneInput.value.length > 0 && !phoneOk) ? 'block' : 'none';
             phoneInput.style.borderColor = (phoneInput.value.length > 0 && !phoneOk) ? '#ef4444' : 'var(--mc-border)';
-            const allOk = !!userPhoto && !!window._mcTerms && phoneOk;
-            genBtn.disabled = !allOk;
-            LOG.info('Validação campos — phone:' + phoneOk + ' foto:' + !!userPhoto + ' termos:' + !!window._mcTerms + ' → botão ' + (allOk ? 'HABILITADO' : 'desabilitado'));
+            // Botão fica SEMPRE clicável — validação real acontece no onclick
+            LOG.info('Validação campos — phone:' + phoneOk + ' foto:' + !!userPhoto + ' termos:' + !!window._mcTerms);
+        }
+
+        function flashError(targetEl, hintMsg) {
+            const hint = document.getElementById('mc-validation-hint');
+            if (hint) {
+                hint.textContent = '⚠️ ' + hintMsg;
+                hint.classList.add('is-visible');
+            }
+            if (targetEl) {
+                targetEl.classList.add('is-error', 'mc-shake');
+                setTimeout(() => targetEl.classList.remove('mc-shake'), 600);
+                try { targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
+                if (targetEl.focus) setTimeout(() => targetEl.focus(), 350);
+            }
+        }
+        function clearValidationHints() {
+            const hint = document.getElementById('mc-validation-hint');
+            if (hint) hint.classList.remove('is-visible');
+            phoneInput.classList.remove('is-error');
+            const up = document.getElementById('mc-trigger-upload');
+            if (up) up.classList.remove('is-error');
+            const tr = document.getElementById('mc-terms-row');
+            if (tr) tr.classList.remove('is-error');
         }
 
         ['mc-h-val', 'mc-w-val', 'mc-cin-val', 'mc-quad-val', 'mc-blusa-h-val', 'mc-blusa-w-val'].forEach(id => {
@@ -882,23 +939,23 @@
 
         genBtn.onclick = () => {
             LOG.info('Botão "Ver no meu corpo" clicado');
+            const _gNums = (phoneInput.value || '').replace(/\D/g, '');
+            const _gPhoneOk = isValidBRPhone(_gNums);
+            if (!_gPhoneOk) {
+                flashError(phoneInput, 'Preencha seu WhatsApp para continuar');
+                return;
+            }
             if (!userPhoto) {
-                LOG.warn('Tentativa de gerar sem foto selecionada');
+                const up = document.getElementById('mc-trigger-upload');
+                flashError(up, 'Envie ou tire sua foto para continuar');
                 return;
             }
             if (!window._mcTerms) {
-                LOG.warn('Termos não aceitos');
+                const tr = document.getElementById('mc-terms-row');
+                flashError(tr, 'Aceite os termos para continuar');
                 return;
             }
-            const _gNums = (phoneInput.value || '').replace(/\D/g, '');
-            const _gPhoneOk = (_gNums.length === 10 || _gNums.length === 11) && /^[1-9][1-9]/.test(_gNums) && (_gNums.length === 10 || _gNums[2] === '9');
-            if (!_gPhoneOk) {
-                LOG.warn('Telefone vazio ou inválido — bloqueia envio');
-                document.getElementById('mc-phone-error').style.display = 'block';
-                phoneInput.style.borderColor = '#ef4444';
-                phoneInput.focus();
-                return;
-            }
+            clearValidationHints();
             // Pula a etapa de confirmação e dispara o gerar diretamente
             if (confirmBtnYes) confirmBtnYes.click();
         };
